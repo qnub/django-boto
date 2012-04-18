@@ -2,7 +2,7 @@
 Django-boto
 ===========
 
-Is an implemetation if django inegration with **Amazon AW(** (http://aws.amazon.com/) services trough
+Is an implemetation if django inegration with **Amazon AWS** (http://aws.amazon.com/) services trough
 **boto** (https://github.com/boto/boto) module.
 
 Installation
