@@ -1,0 +1,9 @@
+*.pyc
+.*.swp
+*.log
+*~
+MANIFEST
+.pypirc
+dist
+*.egg-info
+MANIFEST.in
