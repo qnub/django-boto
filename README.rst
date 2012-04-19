@@ -21,10 +21,11 @@ or::
 Configuration
 -------------
 
-To set up as default file storage replace/create ``DEFAULT_FILE_STORAGE``
-in project settings.py with ``django_boto.s3.storage.S3Storage``::
+DEFAULT_FILE_STORAGE
+********************
 
-    DEFAULT_FILE_STORAGE = 'django_boto.s3.storage.S3Storage'
+Can't be used as default file storage system because of ``path``
+not implemented.
 
 Other settings.py options
 *************************
@@ -63,15 +64,17 @@ Manual S3Storage using
 If need to using manually - you can direct set ``bucket_name``
 (as ``BOTO_S3_BUCKET``), ``key`` (as ``AWS_ACCESS_KEY_ID``),
 ``secret`` (as ``AWS_SECRET_ACCESS_KEY``) and ``location``
-(as ``BOTO_BUCKET_LOCATION``) *as keyword arguments*
+(as ``BOTO_BUCKET_LOCATION``)
 on storage instatiation::
 
     from boto.s3.storage import S3Storage
 
-    s3 = S3Storage(key='another-key', secret='another-secret',
-    bucket='another-bucket', location='EU')
+    s3 = S3Storage(bucket='another-bucket', key='another-key',
+        secret='another-secret', location='EU')
 
-``S3Storage`` - it's tipical `Djago storage system`_, only ``path``, ``created_time`` and ``accessed_time`` is not implemented.
+``S3Storage`` - it's tipical `Djago storage system`_, only ``path``
+is not implemented and ``created_time`` and ``accessed_time`` return
+same value as ``modified_time``.
 
 .. _Djago storage system: http://readthedocs.org/docs/django/en/1.4/ref/files/storage.html#the-storage-class:
 

@@ -14,19 +14,16 @@ class S3Storage(Storage):
     Storage class.
     """
 
-    def __init__(self, *args, **kwargs):
-        bucket_name = kwargs.pop('bucket_name', settings.BOTO_S3_BUCKET)
-        key = kwargs.pop('key', settings.AWS_ACCESS_KEY_ID)
-        secret = kwargs.pop('secret', settings.AWS_SECRET_ACCESS_KEY)
-        location = getattr(Location,
-            kwargs.pop('location', settings.BOTO_BUCKET_LOCATION))
+    def __init__(self, bucket_name=settings.BOTO_S3_BUCKET,
+        key=settings.AWS_ACCESS_KEY_ID, secret=settings.AWS_SECRET_ACCESS_KEY,
+        location=settings.BOTO_BUCKET_LOCATION):
+
+        location = getattr(Location, location)
         self.s3 = connect_s3(key, secret)
         try:
             self.bucket = self.s3.create_bucket(bucket_name, location=location)
         except S3CreateError:
             self.bucket = self.s3.get_bucket(bucket_name)
-
-        super(S3Storage, self).__init__(*args, **kwargs)
 
     def delete(self, name):
         """
@@ -40,11 +37,17 @@ class S3Storage(Storage):
         """
         return self.bucket.new_key(name).exists()
 
+    def _list(self, path):
+        result_list = self.bucket.list(path, '/')
+
+        for key in result_list:
+            yield key.name
+
     def listdir(self, path):
         """
         Catalog file list.
         """
-        return self.bucket.list(path, '/')
+        return [], self._list(path)
 
     def size(self, name):
         """
@@ -88,20 +91,4 @@ class S3Storage(Storage):
         """
         return self.bucket.lookup(name).last_modified
 
-    def path(self, name):
-        """
-        Local file path.
-        """
-        raise NotImplementedError
-
-    def created_time(self, name):
-        """
-        Creation time.
-        """
-        raise NotImplementedError
-
-    def accessed_time(self, name):
-        """
-        Last access time.
-        """
-        raise NotImplementedError
+    created_time = accessed_time = modified_time

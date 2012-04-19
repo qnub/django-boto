@@ -1,3 +1,8 @@
+0.1.1b (18.04.2012)
+
+Fixed listdir.
+Fixed README.
+
 0.1b (18.04.2012)
 
 S3 backend for django file storage
