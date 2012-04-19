@@ -97,5 +97,7 @@ where:
 ``secret``
     ``AWS_SECRET_ACCESS_KEY`` replacement.
 
+It's retun URL for direct file download.
+
 Last four options are optional. If not set - it takes from settings.py or
 used defaults.

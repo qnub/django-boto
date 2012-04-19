@@ -44,7 +44,6 @@ setup(
     author='Vadim Lopatyuk',
     author_email='qnub.ru@gmail.com',
     url='https://github.com/qnub/django-boto/',
-    bugtrack_url='https://github.com/qnub/django-boto/issues/',
     packages=["django_boto", "django_boto.s3"],
     install_requires=["django>=1.3", "boto>=2.3.0"],
     license="MIT",
