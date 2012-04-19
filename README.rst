@@ -25,7 +25,17 @@ DEFAULT_FILE_STORAGE
 ********************
 
 Can't be used as default file storage system because of ``path``
-not implemented.
+not implemented but you still can pass ``S3Storage`` object as storage option
+to a ``FileField``::
+
+    from django.db import models
+    from django_boto.s3.storage import S3Storage
+
+    s3 = S3Storage()
+
+    class Car(models.Model):
+        ...
+        photo = models.ImageField(storage=s3)
 
 Other settings.py options
 *************************
