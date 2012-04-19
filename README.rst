@@ -1,4 +1,5 @@
 
+
 Django-boto
 ===========
 
@@ -70,7 +71,9 @@ on storage instatiation::
     s3 = S3Storage(key='another-key', secret='another-secret',
     bucket='another-bucket', location='EU')
 
-``S3Storage`` - it's tipical Djago storage system.
+``S3Storage`` - it's tipical `Djago storage system`_, only ``path``, ``created_time`` and ``accessed_time`` is not implemented.
+
+.. _Djago storage system: http://readthedocs.org/docs/django/en/1.4/ref/files/storage.html#the-storage-class:
 
 Upload shortcut
 ***************
