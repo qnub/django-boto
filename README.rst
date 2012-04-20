@@ -100,8 +100,8 @@ For simple uploading you can use shortcut::
 where:
 
 ``filename``
-    ``string`` filsystem path to file or **django** ``File`` instance or
-    **python** ```file`` object instance;
+    ``string`` filesystem path to file or **django** ``File`` instance or
+    **python** ``file`` object instance;
 ``prefix``
     ``string`` path prefix to filename in ``s3.amazonaws.com`` url. Like
     filename ``/images/image.jpg`` with ``avatars`` prefix convert to
