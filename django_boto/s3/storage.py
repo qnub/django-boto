@@ -100,7 +100,7 @@ class S3Storage(Storage):
         Save file.
         """
         key = self.bucket.new_key(name)
-
+        content.seek(0)
         key.set_contents_from_file(content)
 
         content.seek(0, 2)
