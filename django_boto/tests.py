@@ -37,7 +37,7 @@ class BotoTest(TestCase):
         Storage testing.
         """
         text = ''
-        storage = S3Storage()
+        storage = S3Storage(host='s3.amazonaws.com')
 
         file_length = random.randrange(300, 1300)
         text = get_string(file_length)

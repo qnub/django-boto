@@ -16,8 +16,9 @@ class S3Storage(Storage):
 
     def __init__(self, bucket_name=settings.BOTO_S3_BUCKET,
         key=settings.AWS_ACCESS_KEY_ID, secret=settings.AWS_SECRET_ACCESS_KEY,
-        location=settings.BOTO_BUCKET_LOCATION):
+        location=settings.BOTO_BUCKET_LOCATION, host=settings.BOTO_S3_HOST):
 
+        self.host = host
         location = getattr(Location, location)
         self.s3 = connect_s3(key, secret)
         try:
@@ -61,10 +62,10 @@ class S3Storage(Storage):
         """
         if name.startswith('/'):
             return 'http://' + settings.BOTO_S3_BUCKET + '.' + \
-                settings.BOTO_S3_HOST + name
+                self.host + name
         else:
             return 'http://' + settings.BOTO_S3_BUCKET + '.' + \
-                settings.BOTO_S3_HOST + '/' + name
+                self.host + '/' + name
 
     def _open(self, name, mode='rb'):
         """
@@ -80,8 +81,15 @@ class S3Storage(Storage):
         Save file.
         """
         key = self.bucket.new_key(name)
-        key.set_contents_from_file(content)
-        key.set_acl('public-read')
+        saved_size = key.set_contents_from_file(content)
+
+        content.seek(0, 2)
+        if saved_size == content.tell():
+            key.set_acl('public-read')
+        else:
+            key.delete()
+
+            raise IOError('Error during saving file %s' % name)
 
         return name
 
