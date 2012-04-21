@@ -49,7 +49,7 @@ class BotoTest(TestCase):
 
         test_file = ContentFile(text)
         test_file.name = filename
-        uploaded_url = upload(test_file)
+        uploaded_url = upload(test_file, host='s3.amazonaws.com')
 
         self.assertTrue(storage.exists(filename))
 

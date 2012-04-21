@@ -3,24 +3,15 @@
 from os import path
 
 from django.core.files import File
-from django_boto import settings
 from storage import S3Storage
 
 
-def upload(filename, prefix=False, bucket_name=False, key=None, secret=None):
+def upload(filename, prefix=False, bucket_name=False, key=None, secret=None,
+    host=None):
     """
     Uploading files to Amamzon S3.
     """
-    if not bucket_name:
-        bucket_name = settings.BOTO_S3_BUCKET
-
-    if not key:
-        key = settings.AWS_ACCESS_KEY_ID
-
-    if not secret:
-        secret = settings.AWS_SECRET_ACCESS_KEY
-
-    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret)
+    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host)
     name = None
 
     if isinstance(filename, basestring):

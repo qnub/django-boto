@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from django.core.files.storage import Storage
 from tempfile import TemporaryFile
 
@@ -9,14 +11,31 @@ from boto.exception import S3CreateError
 from django_boto import settings
 
 
+logger = logging.getLogger(__name__)
+
+
 class S3Storage(Storage):
     """
     Storage class.
     """
 
-    def __init__(self, bucket_name=settings.BOTO_S3_BUCKET,
-        key=settings.AWS_ACCESS_KEY_ID, secret=settings.AWS_SECRET_ACCESS_KEY,
-        location=settings.BOTO_BUCKET_LOCATION, host=settings.BOTO_S3_HOST):
+    def __init__(self, bucket_name=None, key=None, secret=None, location=None,
+        host=None):
+
+        if not bucket_name:
+            bucket_name = settings.BOTO_S3_BUCKET
+
+        if not key:
+            key = settings.AWS_ACCESS_KEY_ID
+
+        if not secret:
+            secret = settings.AWS_SECRET_ACCESS_KEY
+
+        if not location:
+            location = settings.BOTO_BUCKET_LOCATION
+
+        if not host:
+            host = settings.BOTO_S3_HOST
 
         self.host = host
         location = getattr(Location, location)
@@ -72,7 +91,7 @@ class S3Storage(Storage):
         Open file.
         """
         result = TemporaryFile()
-        self.bucket.new_key(name).get_file(result)
+        self.bucket.get_key(name).get_file(result)
 
         return result
 
@@ -81,15 +100,20 @@ class S3Storage(Storage):
         Save file.
         """
         key = self.bucket.new_key(name)
-        saved_size = key.set_contents_from_file(content)
+
+        key.set_contents_from_file(content)
 
         content.seek(0, 2)
-        if saved_size == content.tell():
+        orig_size = content.tell()
+        saved_size = key.size
+
+        if saved_size == orig_size:
             key.set_acl('public-read')
         else:
             key.delete()
 
-            raise IOError('Error during saving file %s' % name)
+            raise IOError('Error during saving file %s - saved %s of %s bytes'
+             % (name, saved_size, orig_size))
 
         return name
 
