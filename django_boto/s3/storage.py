@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from urllib import pathname2url
 
 from django.core.files.storage import Storage
 from tempfile import TemporaryFile
@@ -79,6 +80,8 @@ class S3Storage(Storage):
         """
         URL for file downloading.
         """
+        name = pathname2url(name)
+
         if name.startswith('/'):
             return 'http://' + settings.BOTO_S3_BUCKET + '.' + \
                 self.host + name
