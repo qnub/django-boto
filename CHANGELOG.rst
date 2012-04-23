@@ -1,8 +1,12 @@
+0.1.5b (23.04.2012)
+*******************
+
+* key uploading exveption wrapped to IOError exception and added message
+
 0.1.4b (21.04.2012)
 *******************
 
 * Seek(0) saved file before save
-
 
 0.1.3b (21.04.2012)
 *******************

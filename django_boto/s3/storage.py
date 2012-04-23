@@ -101,7 +101,11 @@ class S3Storage(Storage):
         """
         key = self.bucket.new_key(name)
         content.seek(0)
-        key.set_contents_from_file(content)
+
+        try:
+            key.set_contents_from_file(content)
+        except Exception as e:
+            raise IOError('Error during uploading file - %s' % e.message)
 
         content.seek(0, 2)
         orig_size = content.tell()
