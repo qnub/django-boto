@@ -11,7 +11,7 @@ def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
     """
     if isinstance(filename, basestring):
         fl = open(filename, 'rb')
-    elif not isinstance(filename, (file, File)):
+    elif isinstance(filename, (file, File)):
         fl = filename
     else:
         raise TypeError('File must be file or string instance.')

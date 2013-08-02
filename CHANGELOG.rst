@@ -1,3 +1,8 @@
+0.2 (02.08.2013)
+****************
+
+* Upgraded upload shortcut to use custom filename (thanks @ivan-yurin)
+
 0.1.6b (23.04.2012)
 *******************
 

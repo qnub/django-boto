@@ -62,12 +62,6 @@ Other settings.py options
 Using
 -----
 
-Default Django file storage
-***************************
-
-If set as default file storage - check for right set ``DEFAULT_FILE_STORAGE``,
-``AWS_ACCESS_KEY_ID`` and ``AWS_SECRET_ACCESS_KEY`` in project ``settings.py``.
-
 Manual S3Storage using
 **********************
 
@@ -95,13 +89,15 @@ For simple uploading you can use shortcut::
 
     from django_boto.s3 import upload
 
-    upload(filename, prefix=False, bucket_name=False, key=None, secret=None)
+    upload(filename, name=None, prefix=False, bucket_name=False, key=None, secret=None)
 
 where:
 
 ``filename``
     ``string`` filesystem path to file or **django** ``File`` instance or
     **python** ``file`` object instance;
+``name``
+    ``string`` target django name for uploading file;
 ``prefix``
     ``string`` path prefix to filename in ``s3.amazonaws.com`` url. Like
     filename ``/images/image.jpg`` with ``avatars`` prefix convert to
