@@ -28,6 +28,6 @@ def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
         full_path = name
 
     s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host)
-    s3.save(full_path, file)
+    s3.save(full_path, fl)
 
     return s3.url(full_path)
