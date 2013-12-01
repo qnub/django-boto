@@ -23,28 +23,26 @@ class S3Storage(Storage):
     def __init__(self, bucket_name=None, key=None, secret=None, location=None,
         host=None):
 
-        if not bucket_name:
-            bucket_name = settings.BOTO_S3_BUCKET
+        self.bucket_name = bucket_name if bucket_name else settings.BOTO_S3_BUCKET
+        self.key = key if key else settings.AWS_ACCESS_KEY_ID
+        self.secret = secret if secret else settings.AWS_SECRET_ACCESS_KEY
+        self.location = location if location else settings.BOTO_BUCKET_LOCATION
+        self.host = host if host else settings.BOTO_S3_HOST
 
-        if not key:
-            key = settings.AWS_ACCESS_KEY_ID
+        self.location = getattr(Location, self.location)
 
-        if not secret:
-            secret = settings.AWS_SECRET_ACCESS_KEY
+        self._bucket = None
 
-        if not location:
-            location = settings.BOTO_BUCKET_LOCATION
+    @property
+    def bucket(self):
+        if not self._bucket:
+            self.s3 = connect_s3(self.key, self.secret)
+            try:
+                self._bucket = self.s3.create_bucket(self.bucket_name, location=self.location)
+            except S3CreateError:
+                self._bucket = self.s3.get_bucket(self.bucket_name)
+        return self._bucket
 
-        if not host:
-            host = settings.BOTO_S3_HOST
-
-        self.host = host
-        location = getattr(Location, location)
-        self.s3 = connect_s3(key, secret)
-        try:
-            self.bucket = self.s3.create_bucket(bucket_name, location=location)
-        except S3CreateError:
-            self.bucket = self.s3.get_bucket(bucket_name)
 
     def delete(self, name):
         """
