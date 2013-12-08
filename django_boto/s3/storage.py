@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from urllib import pathname2url
 
 from django.core.files.storage import Storage
 from tempfile import TemporaryFile
@@ -21,13 +20,14 @@ class S3Storage(Storage):
     """
 
     def __init__(self, bucket_name=None, key=None, secret=None, location=None,
-        host=None):
+        host=None, policy=None):
 
         self.bucket_name = bucket_name if bucket_name else settings.BOTO_S3_BUCKET
         self.key = key if key else settings.AWS_ACCESS_KEY_ID
         self.secret = secret if secret else settings.AWS_SECRET_ACCESS_KEY
         self.location = location if location else settings.BOTO_BUCKET_LOCATION
         self.host = host if host else settings.BOTO_S3_HOST
+        self.policy = policy if policy else settings.AWS_ACL_POLICY
 
         self.location = getattr(Location, self.location)
 
@@ -36,13 +36,12 @@ class S3Storage(Storage):
     @property
     def bucket(self):
         if not self._bucket:
-            self.s3 = connect_s3(self.key, self.secret)
+            self.s3 = connect_s3(aws_access_key_id=self.key, aws_secret_access_key=self.secret, host=self.host)
             try:
-                self._bucket = self.s3.create_bucket(self.bucket_name, location=self.location)
+                self._bucket = self.s3.create_bucket(self.bucket_name, location=self.location, policy=self.policy)
             except S3CreateError:
                 self._bucket = self.s3.get_bucket(self.bucket_name)
         return self._bucket
-
 
     def delete(self, name):
         """
@@ -74,20 +73,15 @@ class S3Storage(Storage):
         """
         return self.bucket.lookup(name).size
 
-    def url(self, name):
+    def url(self, name, expires=0, query_auth=False, force_http=True):
         """
         URL for file downloading.
         """
-        name = pathname2url(name)
 
-        if name.startswith('/'):
-            return 'http://' + settings.BOTO_S3_BUCKET + '.' + \
-                self.host + name
-        else:
-            return 'http://' + settings.BOTO_S3_BUCKET + '.' + \
-                self.host + '/' + name
+        key = self.bucket.get_key(name)
+        return key.generate_url(expires, query_auth=query_auth, force_http=force_http)
 
-    def _open(self, name, mode='rb'):
+    def _open(self, name):
         """
         Open file.
         """
@@ -113,7 +107,7 @@ class S3Storage(Storage):
         saved_size = key.size
 
         if saved_size == orig_size:
-            key.set_acl('public-read')
+            key.set_acl(self.policy)
         else:
             key.delete()
 

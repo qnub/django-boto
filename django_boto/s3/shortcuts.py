@@ -5,9 +5,11 @@ from storage import S3Storage
 
 
 def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
-           secret=None, host=None):
+           secret=None, host=None, expires=0, query_auth=False, force_http=True,
+           policy=None):
     """
     Uploading files to Amamzon S3.
+    Returns String.
     """
     if isinstance(filename, basestring):
         fl = open(filename, 'rb')
@@ -27,7 +29,64 @@ def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
     else:
         full_path = name
 
-    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host)
+    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host,
+                   policy=policy)
     s3.save(full_path, fl)
 
-    return s3.url(full_path)
+    return s3.url(full_path, expires, query_auth, force_http)
+
+
+def get_url(name=None, prefix=False, bucket_name=False, key=None,
+           secret=None, host=None, expires=0, query_auth=False, force_http=True):
+    """
+    Get Url for key on Amazon S3.
+    Returns String.
+    """
+    if prefix:
+        if prefix.endswith('/'):
+            full_path = prefix + name
+        else:
+            full_path = prefix + '/' + name
+    else:
+        full_path = name
+
+    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host)
+
+    return s3.url(full_path, expires, query_auth, force_http)
+
+
+def download(name=None, prefix=False, bucket_name=False, key=None,
+             secret=None, host=None):
+    """
+    Download file from Amazon S3.
+    Returns TemporaryFile().
+    """
+    if prefix:
+        if prefix.endswith('/'):
+            full_path = prefix + name
+        else:
+            full_path = prefix + '/' + name
+    else:
+        full_path = name
+
+    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host)
+
+    return s3._open(full_path)
+
+
+def remove(name=None, prefix=False, bucket_name=False, key=None,
+           secret=None, host=None):
+    """
+    Deletes file from Amazon S3.
+    """
+    if prefix:
+        if prefix.endswith('/'):
+            full_path = prefix + name
+        else:
+            full_path = prefix + '/' + name
+    else:
+        full_path = name
+
+    s3 = S3Storage(bucket_name=bucket_name, key=key, secret=secret, host=host)
+
+    s3.delete(full_path)

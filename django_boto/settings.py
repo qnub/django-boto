@@ -13,3 +13,5 @@ BOTO_S3_BUCKET = getattr(settings, 'BOTO_S3_BUCKET',
 BOTO_S3_HOST = getattr(settings, 'BOTO_S3_HOST', 's3.amazonaws.com')
 
 BOTO_BUCKET_LOCATION = getattr(settings, 'BOTO_BUCKET_LOCATION', 'DEFAULT')
+
+AWS_ACL_POLICY = getattr(settings, 'AWS_ACL_POLICY', 'public-read')

@@ -1,3 +1,12 @@
+0.2.2 (08.12.2013)
+******************
+
+* allow using s3 based storage not hosted by Amazon
+* added more shortcut functions (delete, get_url, download)
+* allow to set permissions on bucket/key other than public read
+* fixed S3Storage.url
+* hopefully all backwards compatible
+
 0.2.1 (03.08.2013)
 ******************
 
@@ -16,7 +25,7 @@
 0.1.5b (23.04.2012)
 *******************
 
-* key uploading exveption wrapped to IOError exception and added message
+* key uploading exception wrapped to IOError exception and added message
 
 0.1.4b (21.04.2012)
 *******************
