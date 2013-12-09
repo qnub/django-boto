@@ -20,7 +20,7 @@ class S3Storage(Storage):
     """
 
     def __init__(self, bucket_name=None, key=None, secret=None, location=None,
-        host=None, policy=None):
+        host=None, policy=None, replace=True):
 
         self.bucket_name = bucket_name if bucket_name else settings.BOTO_S3_BUCKET
         self.key = key if key else settings.AWS_ACCESS_KEY_ID
@@ -28,6 +28,7 @@ class S3Storage(Storage):
         self.location = location if location else settings.BOTO_BUCKET_LOCATION
         self.host = host if host else settings.BOTO_S3_HOST
         self.policy = policy if policy else settings.AWS_ACL_POLICY
+        self.replace = replace
 
         self.location = getattr(Location, self.location)
 
@@ -73,7 +74,7 @@ class S3Storage(Storage):
         """
         return self.bucket.lookup(name).size
 
-    def url(self, name, expires=0, query_auth=False, force_http=True):
+    def url(self, name, expires=30, query_auth=False, force_http=False):
         """
         URL for file downloading.
         """
@@ -97,10 +98,19 @@ class S3Storage(Storage):
         key = self.bucket.new_key(name)
         content.seek(0)
 
-        try:
-            key.set_contents_from_file(content)
-        except Exception as e:
-            raise IOError('Error during uploading file - %s' % e.message)
+        if self.replace:
+            try:
+                key.set_contents_from_file(content, replace=True)
+            except Exception as e:
+                raise IOError('Error during uploading file - %s' % e.message)
+        else:
+            if key.exists():
+                raise IOError('File already exists and can\'t be replaced - %s' % name)
+            else:
+                try:
+                    key.set_contents_from_file(content, replace=False)
+                except Exception as e:
+                    raise IOError('Error during uploading file - %s' % e.message)
 
         content.seek(0, 2)
         orig_size = content.tell()
@@ -113,6 +123,15 @@ class S3Storage(Storage):
 
             raise IOError('Error during saving file %s - saved %s of %s bytes'
              % (name, saved_size, orig_size))
+
+        return name
+
+    def get_available_name(self, name):
+        """
+        Returns a filename that's free on the target storage system, and
+        available for new content to be written to.
+        Handled by Boto itself.
+        """
 
         return name
 
