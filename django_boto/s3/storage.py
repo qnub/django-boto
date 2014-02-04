@@ -39,7 +39,7 @@ class S3Storage(Storage):
             self.s3 = connect_s3(self.key, self.secret)
             try:
                 self._bucket = self.s3.create_bucket(self.bucket_name, location=self.location)
-            except S3CreateError, S3ResponseError:
+            except (S3CreateError, S3ResponseError):
                 self._bucket = self.s3.get_bucket(self.bucket_name)
         return self._bucket
 
