@@ -8,7 +8,7 @@ from tempfile import TemporaryFile
 
 from boto import connect_s3
 from boto.s3.connection import Location
-from boto.exception import S3CreateError
+from boto.exception import S3CreateError, S3ResponseError
 from django_boto import settings
 
 
@@ -39,7 +39,7 @@ class S3Storage(Storage):
             self.s3 = connect_s3(self.key, self.secret)
             try:
                 self._bucket = self.s3.create_bucket(self.bucket_name, location=self.location)
-            except S3CreateError:
+            except (S3CreateError, S3ResponseError):
                 self._bucket = self.s3.get_bucket(self.bucket_name)
         return self._bucket
 
