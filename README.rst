@@ -59,6 +59,9 @@ Other settings.py options
 ``BOTO_BUCKET_LOCATION``
     Amazon datacenter location. Default to ``US Classic Region``.
 
+``AWS_ACL_POLICY``
+    Default canned ACL for objects saved. Defaults to ``public-read``.
+
 Using
 -----
 
@@ -89,7 +92,9 @@ For simple uploading you can use shortcut::
 
     from django_boto.s3 import upload
 
-    upload(filename, name=None, prefix=False, bucket_name=False, key=None, secret=None)
+    upload(filename, name=None, prefix=False, bucket_name=False, key=None,
+           secret=None, host=None, expires=0, query_auth=False, force_http=True,
+           policy=None)
 
 where:
 
@@ -108,8 +113,18 @@ where:
     ``AWS_ACCESS_KEY_ID`` replacement;
 ``secret``
     ``AWS_SECRET_ACCESS_KEY`` replacement.
+``host``
+    ``BOTO_S3_HOST`` replacement.
+``expires``
+    ``int`` How long should private links be valid for.
+``query_auth``
+    ``bool`` Should the url be generated with a valid signature? Required for private files.
+``force_http``
+    ``bool`` Should the generated url be http?
+``policy``
+    ``string`` Canned acl string for uploaded objects.
 
 It's retun URL for direct file download.
 
-Last four options are optional. If not set - it takes from settings.py or
+Last nine options are optional. If not set - it takes from settings.py or
 used defaults.
