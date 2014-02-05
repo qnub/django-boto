@@ -7,6 +7,8 @@ AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
 
 AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
 
+AWS_ACL_POLICY = getattr(settings, 'AWS_ACL_POLICY', 'public-read')
+
 BOTO_S3_BUCKET = getattr(settings, 'BOTO_S3_BUCKET',
     AWS_ACCESS_KEY_ID.lower()).lower()
 
