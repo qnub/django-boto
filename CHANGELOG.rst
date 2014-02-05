@@ -1,22 +1,27 @@
+0.3.0 (05.02.2014)
+******************
+
+* handle S3ResponseError (thanks @andrewjanssen)
+
 0.2.3 (09.12.2013)
 ******************
 
-* changed default added in 0.2.2 for generated urls to use https rather than http
-* allow creating write-once files, by setting replace=False on upload
-* override Storage.get_available_name to stop creating extra files when you intended to replace existing file.
-* by default will now replace existing files rather than creating a new file with suffix
-* tidy up duplicate code in shortcuts
-* reduce the default expire period to 30 seconds
+* changed default added in 0.2.2 for generated urls to use https rather than http (thanks @stuart-warren)
+* allow creating write-once files, by setting replace=False on upload (thanks @stuart-warren)
+* override Storage.get_available_name to stop creating extra files when you intended to replace existing file. (thanks @stuart-warren)
+* by default will now replace existing files rather than creating a new file with suffix (thanks @stuart-warren)
+* tidy up duplicate code in shortcuts (thanks @stuart-warren)
+* reduce the default expire period to 30 seconds (thanks @stuart-warren)
 
 
 0.2.2 (08.12.2013)
 ******************
 
-* allow using s3 based storage not hosted by Amazon
-* added more shortcut functions (delete, get_url, download)
-* allow to set permissions on bucket/key other than 'public-read'
-* fixed S3Storage.url
-* hopefully all backwards compatible
+* allow using s3 based storage not hosted by Amazon (thanks @stuart-warren)
+* added more shortcut functions (delete, get_url, download) (thanks @stuart-warren)
+* allow to set permissions on bucket/key other than 'public-read' (thanks @stuart-warren)
+* fixed S3Storage.url (thanks @stuart-warren)
+* hopefully all backwards compatible (thanks @stuart-warren)
 
 0.2.1 (03.08.2013)
 ******************

@@ -50,6 +50,9 @@ Other settings.py options
     **Security Credentials** settings on AWS service. Required for using
     as default storage.
 
+``AWS_ACL_POLICY``
+    Default canned ACL for objects saved. Defaults to ``public-read``.
+
 ``BOTO_S3_BUCKET``
     Amazon S3 ``bucket`` name. Default set to ``AWS_ACCESS_KEY_ID``.
 
@@ -58,9 +61,6 @@ Other settings.py options
 
 ``BOTO_BUCKET_LOCATION``
     Amazon datacenter location. Default to ``US Classic Region``.
-
-``AWS_ACL_POLICY``
-    Default canned ACL for objects saved. Defaults to ``public-read``.
 
 Using
 -----
