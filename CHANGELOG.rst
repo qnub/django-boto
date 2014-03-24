@@ -1,3 +1,9 @@
+0.3.1 (25.03.2014)
+******************
+
+* fic `S3Storage._open()` signature (thanks @buff3r)
+* fix non latin download url (thanks @caullla)
+
 0.3.0 (05.02.2014)
 ******************
 

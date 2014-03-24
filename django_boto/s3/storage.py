@@ -80,7 +80,7 @@ class S3Storage(Storage):
         URL for file downloading.
         """
 
-        key = self.bucket.get_key(name)
+        key = self.bucket.get_key(name.encode('utf-8'))
         return key.generate_url(expires, query_auth=query_auth, force_http=force_http)
 
     def _open(self, name):
