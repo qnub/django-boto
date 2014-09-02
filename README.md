@@ -45,12 +45,12 @@ Other settings.py options
 -------------------------
 
 ``AWS_ACCESS_KEY_ID``
-    *(rquired for default file storage using)* **Access Key ID** from
+    *(required for default file storage using)* **Access Key ID** from
     **Security Credentials** settings on AWS service. Required for using
     as default storage.
 
 ``AWS_SECRET_ACCESS_KEY``
-    *(rquired for default file storage using)* **Secret Access Key**
+    *(required for default file storage using)* **Secret Access Key**
     from **Security Credentials** settings on AWS service. Required for
     using as default storage.
 
@@ -65,6 +65,9 @@ Other settings.py options
 
 ``BOTO_BUCKET_LOCATION``
     Amazon datacenter location. Default to ``US Classic Region``.
+
+``AWS_S3_FORCE_HTTP_URL``
+    Default to ``False``. This settings allow you forcing S3 to return http links to files (if you have problem with SSL).
 
 #Using
 
