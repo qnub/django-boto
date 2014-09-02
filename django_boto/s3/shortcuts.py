@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.files import File
-from storage import S3Storage
+from .storage import S3Storage
 
 
 def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
@@ -11,9 +11,9 @@ def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
     Uploading files to Amamzon S3.
     Returns String.
     """
-    if isinstance(filename, basestring):
+    if isinstance(filename, str):
         fl = open(filename, 'rb')
-    elif isinstance(filename, (file, File)):
+    elif isinstance(filename, File):
         fl = filename
     else:
         raise TypeError('File must be file or string instance.')
@@ -31,7 +31,7 @@ def upload(filename, name=None, prefix=False, bucket_name=False, key=None,
 
 
 def get_url(name=None, prefix=False, bucket_name=False, key=None,
-           secret=None, host=None, expires=30, query_auth=False, force_http=False):
+            secret=None, host=None, expires=30, query_auth=False, force_http=False):
     """
     Get Url for key on Amazon S3.
     Returns String.
