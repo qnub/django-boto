@@ -1,7 +1,15 @@
+0.3.2(09.09.2014)
+
+* python 3 compatibility (thanx @axik)
+* Add AWS_S3_FORCE_HTTP_URL setting (thanx @axik)
+* Fix typos in README. (thanx @axik)
+* Fixed bug in django admin page see https://code.djangoproject.com/ticket/19538 (thanx @axik)
+
+
 0.3.1 (25.03.2014)
 ******************
 
-* fic `S3Storage._open()` signature (thanks @buff3r)
+* fix `S3Storage._open()` signature (thanks @buff3r)
 * fix non latin download url (thanks @caullla)
 
 0.3.0 (05.02.2014)

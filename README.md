@@ -1,5 +1,4 @@
-#Django-boto
-
+# Django-boto
 
 Is an implementation of django integration with **Amazon AWS**
 (http://aws.amazon.com/) services through **boto**
@@ -10,20 +9,16 @@ Installation
 
 To install:
 
-
-
     easy_install django-boto
 
 or:
-
-
 
     pip install django-boto
 
 Configuration
 =============
 
-DEFAULT\_FILE\_STORAGE
+DEFAULT_FILE_STORAGE
 ----------------------
 
 Can't be used as default file storage system because of ``path`` not
@@ -69,7 +64,7 @@ Other settings.py options
 ``AWS_S3_FORCE_HTTP_URL``
     Default to ``False``. This settings allow you forcing S3 to return http links to files (if you have problem with SSL).
 
-#Using
+# Using
 
 Manual S3Storage using
 ----------------------
@@ -78,7 +73,6 @@ If need to using manually - you can direct set ``bucket_name`` (as
 ``BOTO_S3_BUCKET``), ``key`` (as ``AWS_ACCESS_KEY_ID``), ``secret`` (as
 ``AWS_SECRET_ACCESS_KEY``) and ``location`` (as
 ``BOTO_BUCKET_LOCATION``) on storage instatiation:
-
 
 
     from boto.s3.storage import S3Storage
