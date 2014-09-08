@@ -40,7 +40,7 @@ setup(
     name='django-boto',
     version=__version__,
     description='Wrapper of boto package for django',
-    long_description=open("README.rst").read(),
+    long_description=open("README.md").read(),
     author='Vadim Lopatyuk',
     author_email='qnub.ru@gmail.com',
     url='https://github.com/qnub/django-boto/',
