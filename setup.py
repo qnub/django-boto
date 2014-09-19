@@ -22,12 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
+import sys
+import os
+
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-import sys
 
 from django_boto import __version__
 
@@ -35,6 +36,9 @@ if sys.version_info <= (2, 4):
     error = "ERROR: boto requires Python Version 2.5 or above...exiting."
     print >> sys.stderr, error
     sys.exit(1)
+
+README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-boto',
