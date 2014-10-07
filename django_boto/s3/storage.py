@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 import logging
-from dateutil.parser import parse as parse_date
 from tempfile import TemporaryFile
 
+from dateutil.parser import parse as parse_date
 from django.core.files.storage import Storage
 from django.utils import timezone
+from django.utils.deconstruct import deconstructible
 from django.conf import settings as _settings
-
 from boto import connect_s3
 from boto.s3.connection import Location
 from boto.exception import S3CreateError, S3ResponseError
-
 from django_boto import settings
 
 
 logger = logging.getLogger(__name__)
 
 
+@deconstructible
 class S3Storage(Storage):
 
     """
@@ -38,6 +38,7 @@ class S3Storage(Storage):
         self.location = getattr(Location, self.location)
 
         self._bucket = None
+
 
     @property
     def bucket(self):
