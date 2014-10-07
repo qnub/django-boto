@@ -35,7 +35,8 @@ class S3Storage(Storage):
         self.force_http = force_http_url if force_http_url else settings.AWS_S3_FORCE_HTTP_URL
         self.replace = replace
 
-        self.location = getattr(Location, self.location)
+        if hasattr(Location, self.location):
+            self.location = getattr(Location, self.location)
 
         self._bucket = None
 
