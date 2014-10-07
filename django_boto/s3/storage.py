@@ -39,7 +39,6 @@ class S3Storage(Storage):
 
         self._bucket = None
 
-
     @property
     def bucket(self):
         if not self._bucket:
