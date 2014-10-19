@@ -5,7 +5,13 @@ from tempfile import TemporaryFile
 from dateutil.parser import parse as parse_date
 from django.core.files.storage import Storage
 from django.utils import timezone
-from django.utils.deconstruct import deconstructible
+
+try:
+    from django.utils.deconstruct import deconstructible
+except ImportError:
+    def deconstructible(func):
+        return func
+
 from django.conf import settings as _settings
 from boto import connect_s3
 from boto.s3.connection import Location

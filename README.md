@@ -1,6 +1,6 @@
 # Django-boto
 
-Is an implementation of django <1.7 integration with [Amazon AWS](http://aws.amazon.com/)
+Is an implementation of `Django` integration with [Amazon AWS](http://aws.amazon.com/)
 services through [boto](https://github.com/boto/boto) module.
 
 # Installation
@@ -20,8 +20,6 @@ or:
 Can't be used as default file storage system because of `path` not
 implemented but you still can pass `S3Storage` object as storage
 option to a `FileField`:
-
-
 
     from django.db import models
     from django_boto.s3.storage import S3Storage
