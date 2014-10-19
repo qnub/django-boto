@@ -1,4 +1,5 @@
-# Django-boto
+Django-boto
+===========
 
 Is an implementation of django integration with **Amazon AWS**
 (http://aws.amazon.com/) services through **boto**
@@ -40,14 +41,14 @@ Other settings.py options
 -------------------------
 
 ``AWS_ACCESS_KEY_ID``
-    *(required for default file storage using)* **Access Key ID** from
+    *(required for default file storage use)* **Access Key ID** from
     **Security Credentials** settings on AWS service. Required for using
     as default storage.
 
 ``AWS_SECRET_ACCESS_KEY``
-    *(required for default file storage using)* **Secret Access Key**
-    from **Security Credentials** settings on AWS service. Required for
-    using as default storage.
+    *(required for default file storage use)* **Secret Access Key** from
+    **Security Credentials** settings on AWS service. Required for using
+    as default storage.
 
 ``AWS_ACL_POLICY``
     Default canned ACL for objects saved. Defaults to ``public-read``.
@@ -64,32 +65,36 @@ Other settings.py options
 ``AWS_S3_FORCE_HTTP_URL``
     Default to ``False``. This settings allow you forcing S3 to return http links to files (if you have problem with SSL).
 
-# Using
+Usage
+-----
 
-Manual S3Storage using
-----------------------
+Manual S3Storage usage
+**********************
 
-If need to using manually - you can direct set ``bucket_name`` (as
-``BOTO_S3_BUCKET``), ``key`` (as ``AWS_ACCESS_KEY_ID``), ``secret`` (as
-``AWS_SECRET_ACCESS_KEY``) and ``location`` (as
-``BOTO_BUCKET_LOCATION``) on storage instatiation:
-
+If you need to use it manually - you can pass ``bucket_name``
+(as ``BOTO_S3_BUCKET``), ``key`` (as ``AWS_ACCESS_KEY_ID``),
+``secret`` (as ``AWS_SECRET_ACCESS_KEY``) and ``location``
+(as ``BOTO_BUCKET_LOCATION``)
+directly to storage constructor::
 
     from boto.s3.storage import S3Storage
 
     s3 = S3Storage(bucket='another-bucket', key='another-key',
         secret='another-secret', location='EU')
 
-``S3Storage`` - it's tipical Djago storage system\_, only ``path`` is
-not implemented and ``created_time`` and ``accessed_time`` return same
-value as ``modified_time``.
+
+``S3Storage`` is a typical `Djago storage system`_, only ``path``
+is not implemented and ``created_time`` and ``accessed_time`` return
+same value as ``modified_time``.
+
+.. _Djago storage system: http://readthedocs.org/docs/django/en/1.4/ref/files/storage.html#the-storage-class:
 
 Upload shortcut
 ---------------
 
 For simple uploading you can use shortcut:
 
-
+You can use a shortcut for simple uploads::
 
     from django_boto.s3 import upload
 
@@ -104,7 +109,7 @@ where:
     or **python** ``file`` object instance;
 
 ``name``
-    ``string`` target django name for uploading file;
+    ``string`` target Django's name for uploading the file;
 
 ``prefix``
     ``string`` path prefix to filename in ``s3.amazonaws.com`` url. Like
@@ -137,7 +142,7 @@ where:
 ``policy``
     ``string`` Canned acl string for uploaded objects.
 
-It's return URL for direct file download.
+``upload()`` returns a generated URL for a file download.
 
-Last nine options are optional. If not set - it takes from settings.py
-or used defaults.
+Last nine options are optional. If not set - it's taken from the ``settings.py``
+or defaults are used.
