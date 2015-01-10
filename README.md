@@ -72,7 +72,7 @@ If you need to use it manually - you can pass `bucket_name`
         secret='another-secret', location='EU')
 
 
-`S3Storage` is a typical [Djago storage system](http://readthedocs.org/docs/django/en/1.4/ref/files/storage.html#the-storage-class), only `path`
+`S3Storage` is a typical [Django storage system](http://readthedocs.org/docs/django/en/1.4/ref/files/storage.html#the-storage-class), only `path`
 is not implemented and `created_time` and `accessed_time` return
 same value as `modified_time`.
 
