@@ -1,5 +1,7 @@
 # Django-boto
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/qnub/django-boto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Is an implementation of `Django` integration with [Amazon AWS](http://aws.amazon.com/)
 services through [boto](https://github.com/boto/boto) module.
 
