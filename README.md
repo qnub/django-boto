@@ -70,7 +70,7 @@ If you need to use it manually - you can pass `bucket_name`
 
     from boto.s3.storage import S3Storage
 
-    s3 = S3Storage(bucket='another-bucket', key='another-key',
+    s3 = S3Storage(bucket_name='another-bucket', key='another-key',
         secret='another-secret', location='EU')
 
 
