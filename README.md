@@ -68,7 +68,7 @@ If you need to use it manually - you can pass `bucket_name`
 `secret` (as `AWS_SECRET_ACCESS_KEY`) and `location`
 (as `BOTO_BUCKET_LOCATION`) directly to storage constructor:
 
-    from boto.s3.storage import S3Storage
+    from django_boto.s3.storage import S3Storage
 
     s3 = S3Storage(bucket_name='another-bucket', key='another-key',
         secret='another-secret', location='EU')
