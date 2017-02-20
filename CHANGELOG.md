@@ -1,3 +1,7 @@
+### 0.3.10 (20.10.2014)
+
+* django 1.10 compatibilty (thanx @albertvaka)
+
 ### 0.3.8 (20.10.2014)
 
 * django 1.7 compatibilty (thanx @buff3r)
