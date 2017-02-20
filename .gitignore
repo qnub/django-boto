@@ -9,4 +9,5 @@ dist
 MANIFEST.in
 .sublime
 .idea
+.eggs
 build/
