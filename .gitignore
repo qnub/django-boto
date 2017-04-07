@@ -2,11 +2,9 @@
 .*.swp
 *.log
 *~
-MANIFEST
 .pypirc
 dist
 *.egg-info
-MANIFEST.in
 .sublime
 .idea
 .eggs
