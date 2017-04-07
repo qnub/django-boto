@@ -1,3 +1,7 @@
+### 0.3.11 (07.05.2017)
+
+* add manifest
+
 ### 0.3.10 (20.10.2014)
 
 * django 1.10 compatibilty (thanx @albertvaka)
