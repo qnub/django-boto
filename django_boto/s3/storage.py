@@ -139,7 +139,8 @@ class S3Storage(Storage):
         saved_size = key.size
 
         if saved_size == orig_size:
-            key.set_acl(self.policy)
+            if self.policy:
+                key.set_acl(self.policy)
         else:
             key.delete()
 
