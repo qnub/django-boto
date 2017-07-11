@@ -1,3 +1,7 @@
+### 0.3.12 (12.07.2017)
+
+* optional ACL dependence (thanx @gebetix)
+
 ### 0.3.11 (07.05.2017)
 
 * add manifest
